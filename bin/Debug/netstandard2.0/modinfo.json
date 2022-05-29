@@ -1,0 +1,12 @@
+{
+  "Type": "code",
+  "ModID": "expandedhunger",
+  "Name": "Expanded Hunger",
+  "Description": "Increases max hunger (saturation) and a few other tweaks.",
+  "Version": "1.1.0",
+  "Authors": ["weathersong"],
+  "Side": "server",
+  "RequiredOnClient": true,
+  "RequiredOnServer": true,
+  "Dependencies": {}
+}
