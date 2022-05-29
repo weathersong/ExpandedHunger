@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpandedHunger", "ExpandedHunger.csproj", "{785359A7-0C78-4DC3-8182-AC26F86A0F17}"
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Vintagestory", "G:\Vintagestory\Vintagestory.exe", "{D934B69D-5482-4B9F-8BF2-9429F54583BA}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		PortSupplier = 00000000-0000-0000-0000-000000000000
+		Executable = G:\Vintagestory\Vintagestory.exe
+		RemoteMachine = LETO
+		StartingDirectory = G:\Vintagestory
+		Arguments = -oTesting -pcreativebuilding --addModPath="D:\Games\Vintage Story\ExpandedHunger\bin\Debug"
+		Environment = Default
+		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+		UseLegacyDebugEngines = No
+		LaunchSQLEngine = No
+		AttachLaunchAction = No
+		IORedirection = Auto
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{785359A7-0C78-4DC3-8182-AC26F86A0F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785359A7-0C78-4DC3-8182-AC26F86A0F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785359A7-0C78-4DC3-8182-AC26F86A0F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785359A7-0C78-4DC3-8182-AC26F86A0F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D934B69D-5482-4B9F-8BF2-9429F54583BA}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{D934B69D-5482-4B9F-8BF2-9429F54583BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53034411-71AA-4D58-9492-B8B6CFBB0FC0}
+	EndGlobalSection
+EndGlobal
