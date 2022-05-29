@@ -244,10 +244,11 @@ namespace ExpandedHunger
 
 				default:
 					response = $"Current configuration for Expanded Hunger v{verString}:\n" +
-						$"MaxSaturation = {config.MaxSaturation:#0.0}\n" +
+						$"MaxSaturation = {config.MaxSaturation:N1}\n" +
 						$"PukeOnDeath = {config.PukeOnDeath}\n" +
-						$"DrainOnDeath = {config.DrainOnDeath:#0.0}\n" +
-						$"DeathCheckPrecision = {config.DeathCheckPrecision:#0.0}";
+						$"DrainOnDeath = {config.DrainOnDeath:N1}\n" +
+						$"DeathCheckPrecision = {config.DeathCheckPrecision:#0.0}\n" +
+						$"CommandPrivilege = {config.CommandPrivilege:N0}";
 					break;
 			}
 
