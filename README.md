@@ -27,6 +27,7 @@ XH also has commands that help you to see useful hunger-related information and 
 */xh gain #*: Add # saturation to the player.<br>
 */xh lose #*: Remove # saturation from the player. Note that this *also* affects nutrient levels (gain does not), but only by a fractional amount, because of how the game's own hunger system works.<br>
 */xh resetmax*: Reset the player's MaxSaturation to the mod's configured MaxSaturation. This can be useful for some Funny Behaviors.<br>
+*/xh reseteveryone*: If running XH on a server and adjusting MaxSaturation, this can be useful to propagate the change to everyone already connected.<br>
 */xh max #*: Set MaxSaturation (and apply it). This is the same as editing the configuration file; the change is saved to the mod config file.<br>
 */xh puke*: Immediately removes all the player's saturation, so that they are starving. This is faster to type than */player playername entity satiety 0*<br>
 */xh pukeondeath ?*: Sets the PukeOnDeath configuration, to true or false.<br>
@@ -55,11 +56,23 @@ The game also scales all of your nutrient levels to your MaxSaturation, and it d
 
 Finally, the game has a hard-coded reset of your saturation (to 50%) whenever you die. The way this behaves is locked up in code that is not documented, and requires some fairly sophisticated (read: hacky) workarounds in order for PukeOnDeath to work, if you're using that feature. Technical details are below; the short version is that when respawning, your saturation may not catch up for a couple seconds.
 
+(Also, while it's not a bug per se, XH is not localization-ready. I know, mea culpa, mea culpa.)
+
 # Technical Details
-Documentation in progress.
+Under the hood, XH works by loading the Entity Behavior "BehaviorHunger" (https://github.com/anegostudios/vsessentialsmod/blob/master/Entity/Behavior/BehaviorHunger.cs) for the/each player. It is not a Harmony mod.
+
+BehaviorHunger has all the necessary properties and methods exposed to simply change MaxSaturation (and saturation, and nutrient levels) directly through it. Most the mod is really just a shim on top of BehaviorHunger, with a lot of amateur code spent on the /xh and /xhl commands. Plus the extra logic for PukeOnDeath.
+
+PukeOnDeath is where things do get especially "technical" (read: hacky) in XH. I wanted to have some kind of alternative or additional penalty for death in my own games, and losing all saturation seemed like an easy addition to XH. If only it were. I tried many many experiments with setting saturation in the server's PlayerRespawn and PlayerDeath events. They didn't take. It's possible that I could force the issue with something like EnumHandling, but I wanted XH to be as forward-compatible as is reasonable, and play nice with other mods, as much as possible.
+
+So I have XH registered for a game tick listener, every 1 second. When a player respawns, the IServerPlayer and a timestamp are added to an internal list (called bucketList because, you know, Mr. Creosote). Why the timestamp? I first tried just a List<IServerPlayer> and making 'em all puke on every tick, but I found *that* didn't work either! I don't think this is a synchronicity/threading problem, though I haven't found where in the code the death-resets-saturation actually occurs. My best guess is that it's related to the "loss delay" facility of BehaviorHunger, which can also be observed by eating and then immediately after attempting to drain saturation; it fails, and must be done *twice* to push through the effect. (XH handles this for you, with /xh puke.)
+
+You can control the hold-off time (how much time must have passed since the timestamp for that player in the bucketList) with DeathCheckPrecision. Keep in mind that the server tick is only running every 1 second, however. I wasn't sure if particularly high-load servers may need a higher hold-off or not. You can configure it with /xh dcp and that takes effect immediately.
+
+One last technical detail that may be of importance to other developers picking up the source and tinkering with it in Visual Studio. XH uses the .NET Standard 2.0 framework. At least at the time of this writing, debugging your class library with an executable profile will not correctly attach to the Vintagestory.exe process. (Something to do with the guts of devenv and Vintage Story's own framework.) Instead, add Vintagestory.exe itself as an "Existing Project" to your solution. Yes, the exe itself. Make it the Startup Project, set its arguments (in its project properties), and then double check your Visual Studio options > Projects and Solutions > Build and Run, and make sure to un-check "Only build startup projects and dependencies on Run". Et voila!
 
 # Contact
-This mod is by @unuroboros (weathersong), usually hanging out on the Vintage Story Discord.
+This mod is by @unuroboros (weathersong), usually hanging out on the Vintage Story Discord. Or dfrauzel@pm.me.
 
 # License
-None. Do whatever you want with this mod and its source, and no crediting required. If anyone asks, you found it on StackExchange. Yes the whole thing, wild huh?!
+None. Do whatever you want with this mod and its source, and no crediting required. If anyone asks, you found it on StackOverflow. Yes the whole thing, wild huh?!
