@@ -27,6 +27,7 @@ XH also has commands that help you to see useful hunger-related information and 
 */xh gain #*: Add # saturation to the player.<br>
 */xh lose #*: Remove # saturation from the player. Note that this *also* affects nutrient levels (gain does not), but only by a fractional amount, because of how the game's own hunger system works.<br>
 */xh resetmax*: Reset the player's MaxSaturation to the mod's configured MaxSaturation. This can be useful for some Funny Behaviors.<br>
+*/xh reseteveryone*: If running XH on a server and adjusting MaxSaturation, this can be useful to propagate the change to everyone already connected.<br>
 */xh max #*: Set MaxSaturation (and apply it). This is the same as editing the configuration file; the change is saved to the mod config file.<br>
 */xh puke*: Immediately removes all the player's saturation, so that they are starving. This is faster to type than */player playername entity satiety 0*<br>
 */xh pukeondeath ?*: Sets the PukeOnDeath configuration, to true or false.<br>
@@ -56,10 +57,10 @@ The game also scales all of your nutrient levels to your MaxSaturation, and it d
 Finally, the game has a hard-coded reset of your saturation (to 50%) whenever you die. The way this behaves is locked up in code that is not documented, and requires some fairly sophisticated (read: hacky) workarounds in order for PukeOnDeath to work, if you're using that feature. Technical details are below; the short version is that when respawning, your saturation may not catch up for a couple seconds.
 
 # Technical Details
-Documentation in progress.
+Under the hood, XH works by loading the Entity Behavior "BehaviorHunger" (https://github.com/anegostudios/vsessentialsmod/blob/master/Entity/Behavior/BehaviorHunger.cs) for the/each player. It is not a Harmony mod.
 
 # Contact
-This mod is by @unuroboros (weathersong), usually hanging out on the Vintage Story Discord.
+This mod is by @unuroboros (weathersong), usually hanging out on the Vintage Story Discord. Or dfrauzel@pm.me.
 
 # License
 None. Do whatever you want with this mod and its source, and no crediting required. If anyone asks, you found it on StackExchange. Yes the whole thing, wild huh?!
