@@ -144,6 +144,13 @@ namespace ExpandedHunger
 
 		private void Cmd_Xh(IServerPlayer player, int groupId, CmdArgs args)
 		{
+			// This is just a simple enforcement instead of having custom and specific privileges.
+			if (player.Role.PrivilegeLevel < config.CommandPrivilege)
+			{
+				player.SendMessage(groupId, $"Sorry, you have insufficient privileges to run this command!", EnumChatType.CommandError);
+				return;
+			}
+
 			Shim shim = new(player);
 			if (!shim.IsValid)
 			{
@@ -251,6 +258,13 @@ namespace ExpandedHunger
 
 		private void Cmd_Xhl(IServerPlayer player, int groupId, CmdArgs args)
 		{
+			// This is just a simple enforcement instead of having custom and specific privileges.
+			if (player.Role.PrivilegeLevel < config.CommandPrivilege)
+			{
+				player.SendMessage(groupId, $"Sorry, you have insufficient privileges to run this command!", EnumChatType.CommandError);
+				return;
+			}
+
 			Shim shim = new(player);
 			if (!shim.IsValid)
 			{

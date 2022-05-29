@@ -145,6 +145,9 @@ namespace ExpandedHunger
 				case HungerTypes.Dairy:
 					hunger.DairyLevel = value;
 					break;
+
+				case HungerTypes.All:
+					break;
 			}
 		}
 
@@ -171,20 +174,13 @@ namespace ExpandedHunger
 		/// </summary>
 		public void Puke()
 		{
-			// Running this twice forces the effect. Otherwise it can by blocked by the "lossdelaygain" function of BehaviorHunger.
-			ConsumeSaturation(10);
-			ConsumeSaturation(Saturation - 10);
-		}
+			if (Saturation < 3)
+				return;
 
-		/// <summary>
-		/// This version is run three times to force the effect after a player dies and has respawned.
-		/// </summary>
-		public void DeathPuke()
-		{
-			Puke();
-			Puke();
-			Puke();
-
+			// Running this twice seems to force the effect. Otherwise it can by blocked by the "lossdelaygain" function of BehaviorHunger.
+			// You can observe this by (commenting out the first one and) running this normally, then trying right after the player eats.
+			ConsumeSaturation(1);
+			ConsumeSaturation(Saturation - 1);
 		}
 
 	}
