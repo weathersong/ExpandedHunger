@@ -21,7 +21,7 @@ XH 1.1 has these configurable options:
 **DeathCheckPrecision**: With either the PukeOnDeath or DrainOnDeath feature enabled, this is how many whole seconds after the player respawns before the effect is applied. (Why not immediately on respawn? See Technical Details below.) This defaults to 2, so about two seconds after the player respawns, their saturation will be modified.<br>
 **CommandPrivilege**: This is the required PrivilegeLevel needed to run the /xh and /xhl commands (below). Unlike the other configs here, this can *only* be set in the config file; that is, it requires direct access to the server. It defaults to 99,999, which is op (by default). serverconfig.json defines roles and their privilege levels.
 
-XH also has commands that help you to see useful hunger-related information and make changes to the mod's config while the game is running, without the need to restart the game or world. It's a bunch of different functions so I decided to split them out into these two commands:
+XH also has commands that help you to see useful hunger-related information and make changes to the mod's config while the game is running, without the need to restart the game or world. It's a bunch of different functions so I decided to split them out into these two commands. Note that when *the player* is mentioned, it is the player running the command.
 
 */xh*: If used by itself, shows you the current mod configuration. It also has these functions:<br>
 */xh gain #*: Add # saturation to the player.<br>
