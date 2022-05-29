@@ -21,7 +21,7 @@ XH also has commands that help you to see useful hunger-related information and 
 
 */xh*: If used by itself, shows you the current mod configuration. It also has these functions:<br>
 */xh gain #*: Add # saturation to the player.<br>
-*/xh lose #*: Remove # saturation from the player.<br>
+*/xh lose #*: Remove # saturation from the player. Note that this *also* affects nutrient levels (gain does not), but only by a fractional amount, because of how the game's own hunger system works.<br>
 */xh resetmax*: Reset the player's MaxSaturation to the mod's configured MaxSaturation. This can be useful for some Funny Behaviors.<br>
 */xh max #*: Set MaxSaturation (and apply it). This is the same as editing the configuration file; the change is saved to the mod config file.<br>
 */xh puke*: Immediately removes all the player's saturation, so that they are starving. This does the same thing as */player playername entity satiety 0*<br>
@@ -36,8 +36,8 @@ XH also has commands that help you to see useful hunger-related information and 
 */xhl grain #*: Sets the player's grain nutrient level to #.<br>
 */xhl protein #*: Sets the player's protein nutrient level to #.<br>
 */xhl dairy #*: Sets the player's dairy nutrient level to #.<br>
-*/xhl gainall #*: Add # to all of the nutrient levels. Note that because of how nutrient levels work, only a *fraction* of this amount is actually added.<br>
-*/xhl loseall #*: Removes # from all of the nutrient levels. Again, this works fractionally (apparently by one magnitude).
+*/xhl gainall #*: Add # to all of the nutrient levels. Again, this does *not* affect the player's saturation.<br>
+*/xhl loseall #*: Removes # from all of the nutrient levels.
 
 # Funny Behaviors (Known Bugs)
 
