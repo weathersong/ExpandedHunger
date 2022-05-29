@@ -24,7 +24,7 @@ XH also has commands that help you to see useful hunger-related information and 
 */xh lose #*: Remove # saturation from the player.<br>
 */xh resetmax*: Reset the player's MaxSaturation to the mod's configured MaxSaturation. This can be useful for some Funny Behaviors.<br>
 */xh max #*: Set MaxSaturation (and apply it). This is the same as editing the configuration file; the change is saved to the mod config file.<br>
-*/xh puke*: Immediately removes all the player's saturation, so that they are starving. This is really just the same thing as */player playername entity satiety 0*<br>
+*/xh puke*: Immediately removes all the player's saturation, so that they are starving. This does the same thing as */player playername entity satiety 0*<br>
 */xh pukeondeath ?*: Sets the PukeOnDeath configuration, to true or false.<br>
 */xh drainondeath #*: Sets the DrainOnDeath value.<br>
 */xh dcp #*: Sets the DeathCheckPrecision value. This is in whole seconds, but it can be fractional, e.g. 0.5.<br>
