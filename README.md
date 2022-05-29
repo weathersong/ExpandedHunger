@@ -13,7 +13,7 @@ XH is a "young" mod and I am still somewhat inexperienced with Vintage Story mod
 XH is a server side mod. It doesn't need to be on the client at all. In fact since you're here looking at the source and reading this tediously long readme, you can even load it up in Visual Studio (make sure to make the game's exe the startup project since this is a NET Standard 2.0 project), Debug, Open to LAN, make changes, and Hot Reload with players connected!
 
 # Features and Configuration
-XH 1.1 has four configurable options. These are:
+XH 1.1 has these configurable options:
 
 **MaxSaturation**: The mod's main function. When XH is first installed this defaults to 3000. It can be configured with */xh max*.<br>
 **PukeOnDeath**: True or False, defaults to False. When True, a player loses all saturation (is immediately starving) upon death and respawn. This is an experimental feature.<br>
