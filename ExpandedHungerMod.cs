@@ -57,7 +57,7 @@ namespace ExpandedHunger
 			// So the wonky workaround (wonkaround) here is to have a tick listener, *and* wait some amount of extra time. Gah!
 			serverApi.Event.RegisterGameTickListener(new Action<float>(Server_OnGameTick), 1000, 0);
 
-			serverApi.RegisterCommand("xh", "Expanded Hunger utility command.", "[gain #|lose #|resetmax|max #|pukeondeath true/false|drainondeath #|dcp #]", Cmd_Xh);
+			serverApi.RegisterCommand("xh", "Expanded Hunger utility command.", "[gain #|lose #|resetmax|reseteveryone|max #|pukeondeath true/false|drainondeath #|dcp #]", Cmd_Xh);
 			serverApi.RegisterCommand("xhl", "Expanded Hunger nutrient levels command.", "[all #|fruit #|vegetable #|grain #|protein #|dairy #|gainall #|loseall #]", Cmd_Xhl);
 		}
 
@@ -144,7 +144,7 @@ namespace ExpandedHunger
 
 		private void Cmd_Xh(IServerPlayer player, int groupId, CmdArgs args)
 		{
-			// This is just a simple enforcement instead of having custom and specific privileges.
+			// This is just a simple enforcement instead of having custom and specific privileges, for now.
 			if (player.Role.PrivilegeLevel < config.CommandPrivilege)
 			{
 				player.SendMessage(groupId, $"Sorry, you have insufficient privileges to run this command!", EnumChatType.CommandError);
@@ -159,13 +159,12 @@ namespace ExpandedHunger
 			}
 
 			string configmax = config.MaxSaturation.ToString("N0");
-			string response = "";
-
 			string verb = args.PopWord() ?? "";
 			verb = verb.ToUpper();
 			float? val = null;
 			if (verb != "PUKEONDEATH")
 				val = args.PopFloat();
+			string response;
 
 			switch (verb)
 			{
@@ -173,6 +172,23 @@ namespace ExpandedHunger
 					response = $"Okay, MaxSaturation reset to {configmax}. This may not show up immediately in the game.";
 					shim.MaxSaturation = config.MaxSaturation;
 					break;
+
+				case "RESETEVERYONE":
+					player.SendMessage(groupId, $"Okay. Querying all online players, stand by...", EnumChatType.CommandSuccess);
+					foreach (IPlayer p in serverApi.World.AllOnlinePlayers)
+					{
+						if (p != null && p is IServerPlayer sp)
+						{
+							Shim spshim = new(sp);
+							if (spshim.IsValid)
+							{
+								spshim.MaxSaturation = config.MaxSaturation;
+								player.SendMessage(groupId, $"{sp.PlayerName} :: MaxSaturation reset.", EnumChatType.CommandSuccess);
+							}
+						}
+					}
+					player.SendMessage(groupId, $"ResetMax complete!", EnumChatType.CommandSuccess);
+					return;
 
 				case "MAX":
 					if (val.HasValue)
@@ -259,7 +275,6 @@ namespace ExpandedHunger
 
 		private void Cmd_Xhl(IServerPlayer player, int groupId, CmdArgs args)
 		{
-			// This is just a simple enforcement instead of having custom and specific privileges.
 			if (player.Role.PrivilegeLevel < config.CommandPrivilege)
 			{
 				player.SendMessage(groupId, $"Sorry, you have insufficient privileges to run this command!", EnumChatType.CommandError);
