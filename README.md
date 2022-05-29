@@ -9,13 +9,17 @@ ExpandedHunger (XH) can be configured with a mod config, ExpandedHungerConfig.js
 
 XH is a "young" mod and I am still somewhat inexperienced with Vintage Story modding. I have done my best to test the mod in single player and multi player (but only here on my own LAN), but it's very possible it has some bugs, and it most definitely has some Funny Behavior because of how the game itself works. Please consider this mod as beta!
 
+# Installation
+XH is a server side mod. It doesn't need to be on the client at all. In fact since you're here looking at the source and reading this tediously long readme, you can even load it up in Visual Studio (make sure to make the game's exe the startup project since this is a NET Standard 2.0 project), Debug, Open to LAN, make changes, and Hot Reload with players connected!
+
 # Features and Configuration
 XH 1.1 has four configurable options. These are:
 
 **MaxSaturation**: The mod's main function. When XH is first installed this defaults to 3000. It can be configured with */xh max*.<br>
 **PukeOnDeath**: True or False, defaults to False. When True, a player loses all saturation (is immediately starving) upon death and respawn. This is an experimental feature.<br>
 **DrainOnDeath**: An alternative to PukeOnDeath, this drains a specific amount of saturation instead of all of it. PukeOnDeath must be False for this feature to work. This is a VERY experimental feature and is not yet completely implemented; right now the player will reset to the game's default of half-max-saturation on respawn, and then DrainOnDeath applies to *that* value. It will take some engineering (maybe more than is worthwhile) to save what the player's saturation was immediately before death and drain from that value instead.<br>
-**DeathCheckPrecision**: With either the PukeOnDeath or DrainOnDeath feature enabled, this is how many whole seconds after the player respawns before the effect is applied. (Why not immediately on respawn? See Technical Details below.) This defaults to 2, so about two seconds after the player respawns, their saturation will be modified.
+**DeathCheckPrecision**: With either the PukeOnDeath or DrainOnDeath feature enabled, this is how many whole seconds after the player respawns before the effect is applied. (Why not immediately on respawn? See Technical Details below.) This defaults to 2, so about two seconds after the player respawns, their saturation will be modified.<br>
+**CommandPrivilege**: This is the required PrivilegeLevel needed to run the /xh and /xhl commands (below). Unlike the other configs here, this can *only* be set in the config file; that is, it requires direct access to the server. It defaults to 99,999, which is op (by default). serverconfig.json defines roles and their privilege levels.
 
 XH also has commands that help you to see useful hunger-related information and make changes to the mod's config while the game is running, without the need to restart the game or world. It's a bunch of different functions so I decided to split them out into these two commands:
 
@@ -24,7 +28,7 @@ XH also has commands that help you to see useful hunger-related information and 
 */xh lose #*: Remove # saturation from the player. Note that this *also* affects nutrient levels (gain does not), but only by a fractional amount, because of how the game's own hunger system works.<br>
 */xh resetmax*: Reset the player's MaxSaturation to the mod's configured MaxSaturation. This can be useful for some Funny Behaviors.<br>
 */xh max #*: Set MaxSaturation (and apply it). This is the same as editing the configuration file; the change is saved to the mod config file.<br>
-*/xh puke*: Immediately removes all the player's saturation, so that they are starving. This does the same thing as */player playername entity satiety 0*<br>
+*/xh puke*: Immediately removes all the player's saturation, so that they are starving. This is faster to type than */player playername entity satiety 0*<br>
 */xh pukeondeath ?*: Sets the PukeOnDeath configuration, to true or false.<br>
 */xh drainondeath #*: Sets the DrainOnDeath value.<br>
 */xh dcp #*: Sets the DeathCheckPrecision value. This is in whole seconds, but it can be fractional, e.g. 0.5.<br>
@@ -53,3 +57,9 @@ Finally, the game has a hard-coded reset of your saturation (to 50%) whenever yo
 
 # Technical Details
 Documentation in progress.
+
+# Contact
+This mod is by @unuroboros (weathersong), usually hanging out on the Vintage Story Discord.
+
+# License
+None. Do whatever you want with this mod and its source, and no crediting required. If anyone asks, you found it on StackExchange. Yes the whole thing, wild huh?!
