@@ -11,6 +11,7 @@ namespace ExpandedHunger
 	internal static class ExpandedHungerUtils
 	{
 
+		// Using my own Enum instead of EnumFoodCategory, for the additional facility of All
 		internal enum HungerTypes
 		{
 			None,
@@ -22,7 +23,7 @@ namespace ExpandedHunger
 
 		internal static EntityBehaviorHunger GetEBH(IServerPlayer player)
 		{
-			return player == null ? null : player.Entity == null ? null : player.Entity.GetBehavior<EntityBehaviorHunger>();
+			return player?.Entity?.GetBehavior<EntityBehaviorHunger>();
 		}
 
 		internal static HungerTypes ToHungerType(this string s)
@@ -117,7 +118,6 @@ namespace ExpandedHunger
 				case HungerTypes.Dairy:
 					return GetSaturationLevel(HungerTypes.Dairy).ToString(format);
 
-				case HungerTypes.None:
 				default:
 					return "?";
 			}
@@ -147,6 +147,8 @@ namespace ExpandedHunger
 					break;
 
 				case HungerTypes.All:
+					foreach (HungerTypes ht in EachHungerType)
+						SetSaturationLevel(ht, value);
 					break;
 			}
 		}
