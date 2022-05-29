@@ -12,9 +12,9 @@ XH is a "young" mod and I am still somewhat inexperienced with Vintage Story mod
 # Features and Configuration
 XH 1.1 has four configurable options. These are:
 
-**MaxSaturation**: The mod's main function. When XH is first installed this defaults to 3000. It can be configured with */xh max*.
-**PukeOnDeath**: True or False, defaults to False. When True, a player loses all saturation (is immediately starving) upon death and respawn. This is an experimental feature.
-**DrainOnDeath**: An alternative to PukeOnDeath, this drains a specific amount of saturation instead of all of it. PukeOnDeath must be False for this feature to work. This is a VERY experimental feature and is not yet completely implemented; right now the player will reset to the game's default of half-max-saturation on respawn, and then DrainOnDeath applies to *that* value. It will take some engineering (maybe more than is worthwhile) to save what the player's saturation was immediately before death and drain from that value instead.
+**MaxSaturation**: The mod's main function. When XH is first installed this defaults to 3000. It can be configured with */xh max*.<br>
+**PukeOnDeath**: True or False, defaults to False. When True, a player loses all saturation (is immediately starving) upon death and respawn. This is an experimental feature.<br>
+**DrainOnDeath**: An alternative to PukeOnDeath, this drains a specific amount of saturation instead of all of it. PukeOnDeath must be False for this feature to work. This is a VERY experimental feature and is not yet completely implemented; right now the player will reset to the game's default of half-max-saturation on respawn, and then DrainOnDeath applies to *that* value. It will take some engineering (maybe more than is worthwhile) to save what the player's saturation was immediately before death and drain from that value instead.<br>
 **DeathCheckPrecision**: With either the PukeOnDeath or DrainOnDeath feature enabled, this is how many whole seconds after the player respawns before the effect is applied. (Why not immediately on respawn? See Technical Details below.) This defaults to 2, so about two seconds after the player respawns, their saturation will be modified.
 
 XH also has commands that help you to see useful hunger-related information and make changes to the mod's config while the game is running, without the need to restart the game or world. It's a bunch of different functions so I decided to split them out into these two commands:
